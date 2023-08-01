@@ -15,8 +15,8 @@ logging.basicConfig(format=LOG_FORMAT)
 embedding_model_dict = {
     "ernie-tiny": "nghuyong/ernie-3.0-nano-zh",
     "ernie-base": "nghuyong/ernie-3.0-base-zh",
-    "text2vec-base": "shibing624/text2vec-base-chinese",
-    "text2vec": "GanymedeNil/text2vec-large-chinese",
+    "text2vec-base": "./embedding/text2vec-base-chinese",
+    "text2vec": "./embedding/text2vec-large-chinese",
     "m3e-small": "moka-ai/m3e-small",
     "m3e-base": "moka-ai/m3e-base",
 }
@@ -34,66 +34,67 @@ EMBEDDING_DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backe
 # 如将 "chatglm-6b" 的 "local_model_path" 由 None 修改为 "User/Downloads/chatglm-6b"
 # 此处请写绝对路径
 llm_model_dict = {
-    "chatglm-6b-int4-qe": {
-        "name": "chatglm-6b-int4-qe",
-        "pretrained_model_name": "THUDM/chatglm-6b-int4-qe",
-        "local_model_path": None,
-        "provides": "ChatGLM"
-    },
-    "chatglm-6b-int4": {
-        "name": "chatglm-6b-int4",
-        "pretrained_model_name": "THUDM/chatglm-6b-int4",
-        "local_model_path": None,
-        "provides": "ChatGLM"
-    },
-    "chatglm-6b-int8": {
-        "name": "chatglm-6b-int8",
-        "pretrained_model_name": "THUDM/chatglm-6b-int8",
-        "local_model_path": None,
-        "provides": "ChatGLM"
-    },
-    "chatglm-6b": {
-        "name": "chatglm-6b",
-        "pretrained_model_name": "THUDM/chatglm-6b",
-        "local_model_path": None,
-        "provides": "ChatGLM"
-    },
+    # "chatglm-6b-int4-qe": {
+    #     "name": "chatglm-6b-int4-qe",
+    #     "pretrained_model_name": "THUDM/chatglm-6b-int4-qe",
+    #     "local_model_path": None,
+    #     "provides": "ChatGLM"
+    # },
+    # "chatglm-6b-int4": {
+    #     "name": "chatglm-6b-int4",
+    #     "pretrained_model_name": "THUDM/chatglm-6b-int4",
+    #     "local_model_path": None,
+    #     "provides": "ChatGLM"
+    # },
+    # "chatglm-6b-int8": {
+    #     "name": "chatglm-6b-int8",
+    #     "pretrained_model_name": "THUDM/chatglm-6b-int8",
+    #     "local_model_path": None,
+    #     "provides": "ChatGLM"
+    # },
+    # "chatglm-6b": {
+    #     "name": "chatglm-6b",
+    #     "pretrained_model_name": "THUDM/chatglm-6b",
+    #     "local_model_path": None,
+    #     "provides": "ChatGLM"
+    # },
     "chatglm2-6b": {
         "name": "chatglm2-6b",
-        "pretrained_model_name": "THUDM/chatglm2-6b",
+        # "pretrained_model_name": "_KUPLUS_DOCS/kuplus-model/THUDM/chatglm2-6b",
+        "pretrained_model_name": "../_KUPLUS_DOCS/kuplus-model/THUDM/chatglm2-6b",
         "local_model_path": None,
         "provides": "ChatGLM"
     },
-    "chatglm2-6b-int4": {
-        "name": "chatglm2-6b-int4",
-        "pretrained_model_name": "THUDM/chatglm2-6b-int4",
-        "local_model_path": None,
-        "provides": "ChatGLM"
-    },
-    "chatglm2-6b-int8": {
-        "name": "chatglm2-6b-int8",
-        "pretrained_model_name": "THUDM/chatglm2-6b-int8",
-        "local_model_path": None,
-        "provides": "ChatGLM"
-    },
-    "chatyuan": {
-        "name": "chatyuan",
-        "pretrained_model_name": "ClueAI/ChatYuan-large-v2",
-        "local_model_path": None,
-        "provides": None
-    },
-    "moss": {
-        "name": "moss",
-        "pretrained_model_name": "fnlp/moss-moon-003-sft",
-        "local_model_path": None,
-        "provides": "MOSSLLM"
-    },
-    "vicuna-13b-hf": {
-        "name": "vicuna-13b-hf",
-        "pretrained_model_name": "vicuna-13b-hf",
-        "local_model_path": None,
-        "provides": "LLamaLLM"
-    },
+    # "chatglm2-6b-int4": {
+    #     "name": "chatglm2-6b-int4",
+    #     "pretrained_model_name": "THUDM/chatglm2-6b-int4",
+    #     "local_model_path": None,
+    #     "provides": "ChatGLM"
+    # },
+    # "chatglm2-6b-int8": {
+    #     "name": "chatglm2-6b-int8",
+    #     "pretrained_model_name": "THUDM/chatglm2-6b-int8",
+    #     "local_model_path": None,
+    #     "provides": "ChatGLM"
+    # },
+    # "chatyuan": {
+    #     "name": "chatyuan",
+    #     "pretrained_model_name": "ClueAI/ChatYuan-large-v2",
+    #     "local_model_path": None,
+    #     "provides": None
+    # },
+    # "moss": {
+    #     "name": "moss",
+    #     "pretrained_model_name": "fnlp/moss-moon-003-sft",
+    #     "local_model_path": None,
+    #     "provides": "MOSSLLM"
+    # },
+    # "vicuna-13b-hf": {
+    #     "name": "vicuna-13b-hf",
+    #     "pretrained_model_name": "vicuna-13b-hf",
+    #     "local_model_path": None,
+    #     "provides": "LLamaLLM"
+    # },
 
     # 通过 fastchat 调用的模型请参考如下格式
     "fastchat-chatglm-6b": {
@@ -122,7 +123,7 @@ llm_model_dict = {
 }
 
 # LLM 名称
-LLM_MODEL = "chatglm-6b"
+LLM_MODEL = "chatglm2-6b"
 # 量化加载8bit 模型
 LOAD_IN_8BIT = False
 # Load the model with bfloat16 precision. Requires NVIDIA Ampere GPU.
@@ -131,7 +132,7 @@ BF16 = False
 LORA_DIR = "loras/"
 
 # LLM lora path，默认为空，如果有请直接指定文件夹路径
-LLM_LORA_PATH = ""
+LLM_LORA_PATH = "./lora/"
 USE_LORA = True if LLM_LORA_PATH else False
 
 # LLM streaming reponse
@@ -150,7 +151,7 @@ KB_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "knowled
 PROMPT_TEMPLATE = """已知信息：
 {context} 
 
-根据上述已知信息，简洁和专业的来回答用户的问题。如果无法从中得到答案，请说 “根据已知信息无法回答该问题” 或 “没有提供足够的相关信息”，不允许在答案中添加编造成分，答案请使用中文。 问题是：{question}"""
+根据上述已知信息，简洁和专业的来回答用户的问题。如果用户的问题是代码，解释这段代码,如果存在引发崩溃和内存泄漏的问题请指出来。如果无法从中得到答案，请说 “根据已知信息无法回答该问题” 或 “没有提供足够的相关信息”，不允许在答案中添加编造成分，答案请使用中文。问题是：{question}"""
 
 # 缓存知识库数量,如果是ChatGLM2,ChatGLM2-int4,ChatGLM2-int8模型若检索效果不好可以调成’10’
 CACHED_VS_NUM = 1

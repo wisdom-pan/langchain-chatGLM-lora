@@ -82,7 +82,8 @@ class MyFAISS(FAISS, VectorStore):
                 else:
                     expand_range = [i + k, i - k]
                 for l in expand_range:
-                    if l not in id_set and 0 <= l < len(self.index_to_docstore_id):
+                    # if l not in id_set and 0 <= l < len(self.index_to_docstore_id):
+                    if l not in id_set and  l in self.index_to_docstore_id:
                         _id0 = self.index_to_docstore_id[l]
                         doc0 = self.docstore.search(_id0)
                         if docs_len + len(doc0.page_content) > self.chunk_size or doc0.metadata["source"] != \
